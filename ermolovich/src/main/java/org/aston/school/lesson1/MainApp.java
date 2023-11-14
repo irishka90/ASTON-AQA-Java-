@@ -15,6 +15,13 @@ public class MainApp {
 
         masive100();                                 //ex.7
 
+        int[] mas = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};  //ex.8
+        less6Masiv(mas);
+
+        tableMasiv(5);                  //ex.9
+
+        lineMasiv(8, 1);    //ex.10
+
 
     }
 
@@ -84,5 +91,49 @@ public class MainApp {
 
 
     }
+
+    //ex.8
+    private static void less6Masiv(int[] mas) {
+
+        for (int i = 0; i < mas.length; i++) {
+            if (mas[i] < 6) {
+                mas[i] *= 2;
+            }
+        }
+        System.out.println(Arrays.toString(mas));
+    }
+
+    //ex.9
+    private static void tableMasiv(int n) {
+        int[][] table = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    table[i][j] = 1;
+
+                }
+                if (j == n - 1 - i) {
+                    table[i][j] = 1;
+                }
+                System.out.print(table[i][j] + " ");
+            }
+
+            System.out.println();
+        }
+    }
+
+    //ex.10
+    private static void lineMasiv(int len, int initialValue) {
+        int[] lineMas = new int[len];
+        for (int i = 0; i < len; i++) {
+            lineMas[i] = initialValue;
+
+        }
+
+        System.out.println(Arrays.toString(lineMas));
+    }
+
 
 }
