@@ -10,9 +10,9 @@ public class MainApp {
 
         System.out.println(first);
 
-        person();
+        person();  //ex2
 
-        atractions();
+        atractions();   //ex3
 
 
     }
