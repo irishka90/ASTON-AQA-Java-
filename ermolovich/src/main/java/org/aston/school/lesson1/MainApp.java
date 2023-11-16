@@ -11,6 +11,9 @@ public class MainApp {
 
         person();
 
+        atractions();
+
+
     }
 
     //ex.2
@@ -28,6 +31,16 @@ public class MainApp {
                 "toma@mail.ru", 1150);
 
     }
+//ex.3
+    public static void atractions() {
+        Park.Attraction[] atractions = new Park.Attraction[3];
+        atractions[0] = new Park.Attraction("Super8; ", "12 - 15; ", 12);
+        atractions[1] = new Park.Attraction("Bee; ", "12 - 18; ", 13);
+        atractions[2] = new Park.Attraction("Train; ", "10 - 16; ", 10);
 
+        Park park = new Park("Парк", atractions);
+        System.out.println(park);
+
+    }
 
 }
