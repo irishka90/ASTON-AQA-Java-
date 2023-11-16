@@ -1,5 +1,7 @@
 package org.aston.school.lesson1;
 
+import java.util.Arrays;
+
 //ex.1
 public class Employee {
     private String name;
@@ -35,7 +37,8 @@ public class Employee {
                 "anya@mail.ru", 1100);
         person[4] = new Employee("Кошкина Тамара Викторовна", "маркетолог", 28, 8716543,
                 "toma@mail.ru", 1150);
-
+        System.out.println(Arrays.toString(person));
     }
+
 
 }
