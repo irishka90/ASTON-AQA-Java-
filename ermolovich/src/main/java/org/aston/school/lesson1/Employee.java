@@ -22,4 +22,7 @@ public class Employee {
         System.out.println("ФИО: " + name + "; Должность: " + position + "; Возраст: " +
                 age + "; Номер телефона: " + phoneNumber + "; E-mail: " + email + "; Зарплата: " + salary);
     }
+
+
+
 }
