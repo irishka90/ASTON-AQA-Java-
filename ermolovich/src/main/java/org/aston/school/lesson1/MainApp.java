@@ -24,20 +24,22 @@ public class MainApp {
                 "director@mail.ru", 2500);
         persons[1] = new Employee("Петров петр Петрович", "менеджер", 25, 3456789,
                 "petrov@mail.ru", 1300);
-        persons[2] = new Employee("Сидоров Василий Иванович", "инженер", 34, 1234556,
+        persons[2] = new Employee("Сидоров Василий Иванович", "инженер", 44, 1234556,
                 "sidorov@mail.ru", 1500);
         persons[3] = new Employee("Иванова Анна Алексеевна", "менеджер по закупкам", 38, 34512388,
                 "anya@mail.ru", 1100);
         persons[4] = new Employee("Кошкина Тамара Викторовна", "маркетолог", 28, 8716543,
                 "toma@mail.ru", 1150);
 
-        for (Employee person: persons){
-            if(person.getAge()>40) System.out.println(person);
-
+        for (Employee per : persons) {
+            if (per.getAge() > 40) {
+                System.out.println(per);
+            }
         }
 
     }
-//ex.3
+
+    //ex.3
     public static void atractions() {
         Park.Attraction[] atractions = new Park.Attraction[3];
         atractions[0] = new Park.Attraction("Super8; ", "12 - 15; ", 12);
