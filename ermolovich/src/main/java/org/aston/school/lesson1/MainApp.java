@@ -7,7 +7,8 @@ public class MainApp {
     public static void main(String[] args) {
         Employee first = new Employee("Иванов Иван Иванович", "инженер",
                 35, 7567890, "ivanov@mail.ru", 1200);
-        first.info();
+
+        System.out.println(first);
 
         person();
 
@@ -18,17 +19,22 @@ public class MainApp {
 
     //ex.2
     public static void person() {
-        Employee[] person = new Employee[5];
-        person[0] = new Employee("Грибов Иван Иванович", "директор", 45, 234156,
+        Employee[] persons = new Employee[5];
+        persons[0] = new Employee("Грибов Иван Иванович", "директор", 45, 234156,
                 "director@mail.ru", 2500);
-        person[1] = new Employee("Петров петр Петрович", "менеджер", 25, 3456789,
+        persons[1] = new Employee("Петров петр Петрович", "менеджер", 25, 3456789,
                 "petrov@mail.ru", 1300);
-        person[2] = new Employee("Сидоров Василий Иванович", "инженер", 34, 1234556,
+        persons[2] = new Employee("Сидоров Василий Иванович", "инженер", 34, 1234556,
                 "sidorov@mail.ru", 1500);
-        person[3] = new Employee("Иванова Анна Алексеевна", "менеджер по закупкам", 38, 34512388,
+        persons[3] = new Employee("Иванова Анна Алексеевна", "менеджер по закупкам", 38, 34512388,
                 "anya@mail.ru", 1100);
-        person[4] = new Employee("Кошкина Тамара Викторовна", "маркетолог", 28, 8716543,
+        persons[4] = new Employee("Кошкина Тамара Викторовна", "маркетолог", 28, 8716543,
                 "toma@mail.ru", 1150);
+
+        for (Employee person: persons){
+            if(person.getAge()>40) System.out.println(person);
+
+        }
 
     }
 //ex.3

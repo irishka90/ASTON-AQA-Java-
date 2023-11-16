@@ -19,9 +19,13 @@ public class Employee {
         this.email = email;
         this.salary = salary;
     }
+    public int getAge(){
+        return age;
+    }
 
-    public void info() {
-        System.out.println("ФИО: " + name + "; Должность: " + position + "; Возраст: " +
-                age + "; Номер телефона: " + phoneNumber + "; E-mail: " + email + "; Зарплата: " + salary);
+    @Override
+    public String toString() {
+        return "ФИО: " + name + "; Должность: " + position + "; Возраст: " +
+                age + "; Номер телефона: " + phoneNumber + "; E-mail: " + email + "; Зарплата: " + salary;
     }
 }
