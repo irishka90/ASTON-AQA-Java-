@@ -11,14 +11,8 @@ public class Animal {
         this.run = run;
     }
 
-    public class Cat extends Animal {
-        private String name;
 
-        public Cat(String name) {
-            this.name = name;
-        }
 
-    }
 
 
 }
