@@ -3,7 +3,9 @@ package org.aston.school.lesson1;
 import java.util.Arrays;
 
 public class MainApp {
-    //ex.1
+    // Создать класс "Сотрудник" с полями: ФИО, должность, email, телефон, зарплата, возраст.
+    //Конструктор класса должен заполнять эти поля при создании объекта.
+    //Внутри класса «Сотрудник» написать метод, который выводит информацию об объекте в консоль.
     public static void main(String[] args) {
         Employee first = new Employee("Иванов Иван Иванович", "инженер",
                 35, 7567890, "ivanov@mail.ru", 1200);
@@ -17,7 +19,9 @@ public class MainApp {
 
     }
 
-    //ex.2
+    //Создать массив из 5 сотрудников.
+
+    //С помощью цикла вывести информацию только о сотрудниках старше 40 лет.
     public static void person() {
         Employee[] persons = new Employee[5];
         persons[0] = new Employee("Грибов Иван Иванович", "директор", 45, 234156,
@@ -39,7 +43,8 @@ public class MainApp {
 
     }
 
-    //ex.3
+    // Создать класс Park с внутренним классом, с помощью объектов которого можно хранить
+    // информацию об аттракционах, времени их работы и стоимости
     public static void atractions() {
         Park.Attraction[] atractions = new Park.Attraction[3];
         atractions[0] = new Park.Attraction("Super8; ", "12 - 15; ", 12);
