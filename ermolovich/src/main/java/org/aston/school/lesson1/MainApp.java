@@ -4,10 +4,17 @@ import java.util.Arrays;
 
 public class MainApp {
     public static void main(String[] args) {
-        // System.out.println(isBetween10_20(11, 5)); //ex.1
-        isPositiveOrNot(-12);                     //ex.2
-        //  System.out.println(isPositive(11));       //ex.3
-        manyStrings(2, "Hello");              //ex.4
+         System.out.println(isBetween10_20(11, 5)); //ex.1
+
+        manyStrings(2, "Hello");            //ex.2
+
+        isPositiveOrNot(0);                     //ex.3
+
+
+        System.out.println(isPositive(11));       //ex.4
+
+
+
         // System.out.println(leapYear(2204));          //ex.5
 
         int[] arr = {1, 0, 0, 1, 0, 0, 1, 0};       //ex.6
@@ -25,12 +32,28 @@ public class MainApp {
 
     }
 
-    //ex.1
+    //ex.1 .Написать метод, принимающий на вход два целых числа и проверяющий, что их сумма лежит в пределах от 10 до 20
+    //(включительно), если да – вернуть true, в противном случае – false.
     private static boolean isBetween10_20(int a, int b) {
         return a + b >= 10 && a + b <= 20;
     }
 
-    //ex.2
+    //ex.2 Написать метод, которому в качестве аргументов передается строка и число,
+    // метод должен отпечатать в консоль указанную строку, указанное количество раз;
+
+
+    private static void manyStrings(int n, String b) {
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.println(b);
+        }
+
+    }
+
+    ////ex.3  Написать метод, которому в качестве параметра передается целое число, метод должен напечатать в консоль,
+    //    //положительное ли число передали или отрицательное. Замечание: ноль считаем положительным числом.
+
     private static void isPositiveOrNot(int a) {
         // System.out.println(a >= 0 ? "Положительное число" : "Отрицательное число");
         if (a >= 0) {
@@ -40,20 +63,17 @@ public class MainApp {
         }
     }
 
-    //ex.3
+
+    /////ex. 4
+    // Написать метод, которому в качестве параметра передается целое число. Метод должен вернуть true,
+    // если число отрицательное, и вернуть false если положительное.
+
     private static boolean isPositive(int a) {
-        return a < 0;
+        return a <0;
     }
 
-    //ex.4
-    private static void manyStrings(int n, String b) {
 
-        for (int i = 0; i < n; i++) {
 
-            System.out.println(b);
-        }
-
-    }
 
     //ex.5
     private static boolean leapYear(int a) {
