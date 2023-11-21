@@ -5,7 +5,8 @@ public class MainApp {
 
 
     }
-    public static void animalToDo(){
+    public static void catRun(){
+
 
     }
 
