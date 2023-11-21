@@ -5,6 +5,9 @@ public class MainApp {
 
 
     }
+    public static void animalToDo(){
+
+    }
 
 
 }
