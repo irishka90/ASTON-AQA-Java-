@@ -1,57 +1,51 @@
 package org.aston.school.lesson1;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 public class MainApp {
     public static void main(String[] args) {
-        printThreeWords();
-        checkSumSign();
-        printColor();
-        compareNumbers();
-    }
 
-    private static void printThreeWords() {
-        System.out.print("Orange\nBanana\nApple\n");
-    }
+        int y = 3;
+        int x = 5;
+        AppData appData = new AppData(x, y);
 
-    // или 2й, более длинный вариант
-    private static void printThreeWords1() {
-        System.out.println("Orange");
-        System.out.println("Banana");
-        System.out.println("Apple");
-    }
-
-
-    private static void checkSumSign() {
-        int a = 0;
-        int b = -10;
-        if (a + b >= 0) {
-            System.out.println("Сумма положительная");
-        } else {
-            System.out.println("Сумма отрицательная");
-        }
-    }
-
-    private static void printColor() {
-        int value = 120;
-        if (value <= 0) {
-            System.out.println("Красный");
-        } else if (value > 100) {
-            System.out.println("Зеленый");
-        } else {
-            System.out.println("Желтый");
-
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                if (i == 0) {
+                    appData.addHeader(j, "Val " + (j + 1));
+                }
+                appData.addData(i, j, (i + j) * 1000);
+            }
         }
 
-    }
 
-    private static void compareNumbers() {
-        int a = 120;
-        int b = 17;
-        if (a >= b) {
-            System.out.println("a>=b");
-        } else {
-            System.out.println("a<b");
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter("demo.csv"));
+            out.write(appData.headerToCsv());
+            out.write(appData.dataToCsv());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        try {
+            BufferedReader out = new BufferedReader(new FileReader("demo.csv"));
+
+            String str;
+            while ((str = out.readLine()) != null) {
+                System.out.println(str);
+            }
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //System.out.println(appData);
+    }
     }
 
 
-}
+
