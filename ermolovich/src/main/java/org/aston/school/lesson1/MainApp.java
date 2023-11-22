@@ -8,7 +8,7 @@ import java.io.FileWriter;
 public class MainApp {
     public static void main(String[] args) {
 
-        int y = 3;
+        int y = 4;
         int x = 5;
         AppData appData = new AppData(x, y);
 
