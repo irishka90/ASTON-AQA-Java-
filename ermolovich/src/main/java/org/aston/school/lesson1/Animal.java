@@ -1,14 +1,20 @@
 package org.aston.school.lesson1;
 
 public class Animal {
+
+    private static int count;
     protected String name;
     protected int limitSwim;
     protected int limitRun;
 
     public Animal(String name) {
+        count++;
         this.name = name;
     }
 
+    public static int getCount() {
+        return count;
+    }
 
     public void run(int distance) {
         if (limitRun >= distance) {
