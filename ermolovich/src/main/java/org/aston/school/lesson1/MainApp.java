@@ -29,6 +29,10 @@ public class MainApp {
         dog.swim(9);            //собака поплыла
         dog.swim(12);
 
+        Dog dog1=new Dog("Булька");
+        dog1.swim(4);
+        dog1.run(600);
+
         Plate plate = new Plate(50); // Создана тарелка с изначальным значением 50
 
         Cat[] cats = new Cat[7];         //Создается массив котов
