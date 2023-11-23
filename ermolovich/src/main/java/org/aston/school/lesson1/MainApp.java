@@ -2,56 +2,61 @@ package org.aston.school.lesson1;
 
 public class MainApp {
     public static void main(String[] args) {
-        printThreeWords();
-        checkSumSign();
-        printColor();
-        compareNumbers();
-    }
+        // Напишите метод, на вход которого подаётся двумерный строковый массив размером 4х4.
+        // При подаче массива другого размера необходимо бросить исключение MyArraySizeException.
+        //Далее метод должен пройтись по всем элементам массива, преобразовать в int и просуммировать.
+        // Если в каком-то элементе массива преобразование не удалось (например, в ячейке лежит символ
+        // или текст вместо числа), должно быть брошено исключение MyArrayDataException с детализацией,
+        // в какой именно ячейке лежат неверные данные.
+        //В методе main() вызвать полученный метод, обработать возможные исключения MyArraySizeException
+        // и MyArrayDataException и вывести результат расчета.
 
-    private static void printThreeWords() {
-        System.out.print("Orange\nBanana\nApple\n");
-    }
+        int x = 4;  //Изменить значение x или у для срабатывания ошибки
+        int y = 4;
+        String[][] table = new String[y][x];
 
-    // или 2й, более длинный вариант
-    private static void printThreeWords1() {
-        System.out.println("Orange");
-        System.out.println("Banana");
-        System.out.println("Apple");
-    }
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                table[i][j] = "" + (i + j);
 
-
-    private static void checkSumSign() {
-        int a = 0;
-        int b = -10;
-        if (a + b >= 0) {
-            System.out.println("Сумма положительная");
-        } else {
-            System.out.println("Сумма отрицательная");
+                System.out.print(table[i][j] + " ");
+            }
+            System.out.println();
         }
-    }
+      //   table[1][0] = "zas";  //Включить для срабатывания ошибки во второй части задания
 
-    private static void printColor() {
-        int value = 120;
-        if (value <= 0) {
-            System.out.println("Красный");
-        } else if (value > 100) {
-            System.out.println("Зеленый");
-        } else {
-            System.out.println("Желтый");
-
+        try {
+            mas4x4(table);
+            toDoInt(table);
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            System.out.println(e.getMessage());
         }
 
     }
+    // Напишите метод, на вход которого подаётся двумерный строковый массив размером 4х4.
+    // При подаче массива другого размера необходимо бросить исключение MyArraySizeException.
 
-    private static void compareNumbers() {
-        int a = 120;
-        int b = 17;
-        if (a >= b) {
-            System.out.println("a>=b");
-        } else {
-            System.out.println("a<b");
+    public static void mas4x4(String[][] table) throws MyArraySizeException {
+        if (table.length != 4 || table[0].length != 4) {
+            throw new MyArraySizeException();
         }
     }
 
+    //Далее метод должен пройтись по всем элементам массива, преобразовать в int и просуммировать.
+// Если в каком-то элементе массива преобразование не удалось (например, в ячейке лежит символ или текст вместо числа),
+// должно быть брошено исключение MyArrayDataException с детализацией, в какой именно ячейке лежат неверные данные.
+    public static void toDoInt(String[][] table) throws MyArrayDataException {
+        int z = 0;
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table[i].length; j++) {
+                try {
+                    z += Integer.parseInt(table[i][j]); //добавление к сумме преобразованного в int значения ячейки
+                } catch (NumberFormatException e) { // отлов ошибки преобразования стандартным Exception
+                    throw new MyArrayDataException(i, j);  // Передача Exсeption в какой именно ячейке лежат неверные данные.
+                }
+            }
+        }
+        System.out.println(z);   // Вывод суммы всех преобразованных ячеек
+    }
 
 }
