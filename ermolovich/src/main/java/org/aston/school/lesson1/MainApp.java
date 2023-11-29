@@ -33,23 +33,11 @@ public class MainApp {
         dog1.swim(4);
         dog1.run(600);
 
-        Plate plate = new Plate(50); // Создана тарелка с изначальным значением 50
-
         Cat[] cats = new Cat[7];         //Создается массив котов
         for (int i = 0; i < cats.length; i++) {
             Cat cat = new Cat("Кот " + (i + 1), i + 10); //создаю кота
-
-            //добавляем в тарелку столько еды, чтобы кот мог поесть
-            if (plate.getValue() - cat.getFoodToEat() < 0) {
-                plate.addFood(cat.getFoodToEat() - plate.getValue());
-            }
-            //проверяю, может ли кот поесть
-            if (plate.getValue() - cat.getFoodToEat() >= 0) {
-                plate.eatFood(cat.getFoodToEat()); //вычитаю еду из тарелки
-                cat.setFeedComplete(true);   //отмечаю, что кот поел
-            }
+            cat.eatFood();  //кормлю кота
             cats[i] = cat;
-            // System.out.println(plate);  //вывожу значение тарелки, после каждого кота
         }
 
         System.out.println(Arrays.toString(cats)); // вывожу всех котов из массива с указанием, сыт кот или голоден

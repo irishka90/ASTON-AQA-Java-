@@ -3,7 +3,7 @@ package org.aston.school.lesson1;
 public class Cat extends Animal {
 
     private static int count = 0; //добавлен счетчик котов
-
+    private static int plate = 50; // общая тарелка
     private boolean feedComplete = false;    //кот по-умолчанию голоден
     private int foodToEat;
 
@@ -14,17 +14,17 @@ public class Cat extends Animal {
         this.foodToEat = foodToEat;
     }
 
+    public void eatFood() {
+        if (plate >= foodToEat) {
+            plate -= foodToEat;
+            feedComplete = true;
+        }
+
+    }
+
     @Override
     public void swim(int distance) {
         System.out.println("Кот не умеет плавать");
-    }
-
-    public void setFeedComplete(boolean feedComplete) {
-        this.feedComplete = feedComplete;
-    }
-
-    public int getFoodToEat() {
-        return foodToEat;
     }
 
     @Override
@@ -35,5 +35,9 @@ public class Cat extends Animal {
 
     public static int getCount() {
         return count;
+    }
+
+    public void addFood(int food){
+        plate+=food;
     }
 }
