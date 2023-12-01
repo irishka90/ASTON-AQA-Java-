@@ -8,23 +8,27 @@ import java.util.Arrays;
 //Набор строк с целочисленными значениями
 //Разделитель между столбцами - символ точка с запятой (;)
 public class AppData {
-    private String[] header;
+    private String[] headers;
     private int[][] data;
 
     public AppData(int x, int y) {
-        this.header = new String[x];
+        this.headers = new String[x];
         this.data = new int[y][x];
     }
 
     public void addHeader(int pos, String text) {
-        header[pos] = text;
+        headers[pos] = text;
+    }
+
+    public void addHeaders(String[] headers) {
+        this.headers = headers;
     }
 
     public String headerToCsv() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < header.length; i++) {
-            builder.append(header[i]);
-            if (i == header.length - 1) {
+        for (int i = 0; i < headers.length; i++) {
+            builder.append(headers[i]);
+            if (i == headers.length - 1) {
                 builder.append("\n");
             } else {
                 builder.append(";");
@@ -56,7 +60,7 @@ public class AppData {
     @Override
     public String toString() {
 
-        StringBuilder builder = new StringBuilder(Arrays.toString(header));
+        StringBuilder builder = new StringBuilder(Arrays.toString(headers));
         for (int[] array : data) {
             builder.append("\n");
             builder.append(Arrays.toString(array));

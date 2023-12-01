@@ -1,10 +1,5 @@
 package org.aston.school.lesson1;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-
 public class MainApp {
     public static void main(String[] args) {
         //Реализовать сохранение данных в csv файл; Реализовать загрузку данных из csv файла. Файл читается целиком.
@@ -28,29 +23,13 @@ public class MainApp {
             }
         }
 
+        System.out.println("File to write: \n" + appData);
+        CsvUtil.save(appData);
 
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter("demo.csv"));
-            out.write(appData.headerToCsv());
-            out.write(appData.dataToCsv());
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        try {
-            BufferedReader out = new BufferedReader(new FileReader("demo.csv"));
+        AppData appDataRead = CsvUtil.read();
+        System.out.println("File to read: \n" + appDataRead);
 
-            String str;
-            while ((str = out.readLine()) != null) {
-                System.out.println(str);
-            }
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //System.out.println(appData);
     }
     }
 
