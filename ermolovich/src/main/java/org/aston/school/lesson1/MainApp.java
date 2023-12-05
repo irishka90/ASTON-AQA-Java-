@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainApp {
 
@@ -12,6 +14,8 @@ public class MainApp {
         System.out.println("Количество четных:" + countEvenNumbers());// 1.
         collectionHigh();  //2.
         sortUp();   //3.
+        students(); //4
+        logins(); //5
     }
 
     private static int countEvenNumbers() {
@@ -65,15 +69,9 @@ public class MainApp {
         System.out.println(newHigh); //новая коллекция
 
         //2.1
-        Function<List<String>, Integer> action1 = highWords -> {
-            int counter = 0;  //подсчет вхождений High в новой коллекции
-            for (String word : highWords) {
-                if (word.contains("High")) {
-                    counter++;
-                }
-            }
-            return counter;
-        };
+        Function<List<String>, Long> action1 = highWords -> highWords.stream()
+                .filter(word -> word.contains("High"))
+                .count();
 
         System.out.println("High кол-во:" + action1.apply(newHigh));
 
@@ -97,18 +95,65 @@ public class MainApp {
         List<String> newNotSorted = generateList(Arrays.asList("f10", "f15", "f2", "f4"));
         System.out.println(newNotSorted); //новая коллекция
 
-        UnaryOperator<List<String>> action = notSortedList -> {
-            notSortedList.sort(new Comparator<String>() {
-                @Override
-                public int compare(String o1, String o2) {
-                    return o1.compareTo(o2);
-                }
-            });
-            return notSortedList;
-        };
+        UnaryOperator<List<String>> action = notSortedList -> notSortedList.stream()
+                .sorted()
+                .collect(Collectors.toList());
 
         System.out.println(action.apply(newNotSorted)); //отсортированная коллекция
     }
 
+    /*
+ 4. Создай класс со следующим содержимым: (СМ. СКРИНШОТ)
+4.1. Необходимо узнать средний возраст студентов мужского пола;
+4.2. Кому из студентов грозит получение повестки в этом году при условии,
+ что призывной возраст установлен в диапазоне от 18 до 27 лет;
+     */
+    private static void students() {
+        Collection<Student> students = Arrays.asList(
+                new Student("Дмитрий", 17, Gender.MAN),
+                new Student("Максим", 20, Gender.MAN),
+                new Student("Екатерина", 20, Gender.WOMAN),
+                new Student("Михаил", 28, Gender.MAN)
+        );
+        //4.1
+        Stream<Integer> ages = students.stream()   //Преобразуем коллекцию в поток
+                .filter(student -> student.getGender() == Gender.MAN) // отфильтровываем только мужчин
+                .map(student -> student.getAge());        //Преобразовали поток студентов в поток, содержащий только их возраст
+
+        List<Integer> arrAges = ages.collect(Collectors.toList());  //Преобразовали поток в коллекцию
+
+        int summ = arrAges.stream() //Cоздаем поток возрастов
+                .reduce(0, Integer::sum); // Считаем сумму всех элементов потока
+
+        double averageAge = (double) summ / arrAges.size();  //Считаем средний возраст
+        System.out.println("Средний возраст мужчинок:" + averageAge);
+
+        //4.2
+        List<Student> writs = students.stream()
+                .filter(student -> student.getGender() == Gender.MAN && student.getAge() <= 27 && student.getAge() >= 18)
+                .collect(Collectors.toList());
+
+        System.out.println(writs);
+    }
+
+    //5. Нужно написать программу, которая будет принимать от пользователя ввод различных логинов.
+    // Как только пользователь введет пустую строку - программа должна прекратить приём данных от
+    // пользователя и вывести в консоль логины, начинающиеся на букву f (строчную).
+
+    private static void logins() {
+        ArrayList<String> logins = new ArrayList<>();
+        String x = "";
+
+        Scanner in = new Scanner(System.in);
+        while (!(x = in.nextLine()).isEmpty()) {
+            logins.add(x);
+        }
+
+        List<String> loginsF = logins.stream()
+                .filter(w -> w.startsWith("f"))
+                .collect(Collectors.toList());
+        System.out.println(loginsF);
+
+    }
 
 }
