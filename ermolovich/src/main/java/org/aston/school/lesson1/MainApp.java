@@ -25,8 +25,8 @@ public class MainApp {
         }
       //   table[1][0] = "zas";  //Включить для срабатывания ошибки во второй части задания
 
+
         try {
-            mas4x4(table);
             toDoInt(table);
         } catch (MyArraySizeException | MyArrayDataException e) {
             System.out.println(e.getMessage());
@@ -37,7 +37,9 @@ public class MainApp {
     // При подаче массива другого размера необходимо бросить исключение MyArraySizeException.
 
     public static void mas4x4(String[][] table) throws MyArraySizeException {
-        if (table.length != 4 || table[0].length != 4) {
+        if (table.length != 4 || table[0].length != 4
+                || table[1].length != 4 || table[2].length != 4
+                || table[3].length != 4) {
             throw new MyArraySizeException();
         }
     }
@@ -45,7 +47,10 @@ public class MainApp {
     //Далее метод должен пройтись по всем элементам массива, преобразовать в int и просуммировать.
 // Если в каком-то элементе массива преобразование не удалось (например, в ячейке лежит символ или текст вместо числа),
 // должно быть брошено исключение MyArrayDataException с детализацией, в какой именно ячейке лежат неверные данные.
-    public static void toDoInt(String[][] table) throws MyArrayDataException {
+    public static void toDoInt(String[][] table) throws MyArrayDataException, MyArraySizeException {
+
+        mas4x4(table);
+
         int z = 0;
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
