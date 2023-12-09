@@ -12,16 +12,15 @@ public class PhoneBook {
     }
 
     public ArrayList<Integer> get(String surname) {
+        ArrayList<Integer> phones = new ArrayList<>();
         if (phoneBook.containsValue(surname)) {
-            ArrayList<Integer> phones = new ArrayList<>();
             for (Map.Entry<Integer, String> item : phoneBook.entrySet()) {
                 if (item.getValue().equals(surname)) {
                     phones.add(item.getKey());
                 }
             }
-            return phones;
         }
-        return new ArrayList<>();
+        return phones;
     }
 
     @Override

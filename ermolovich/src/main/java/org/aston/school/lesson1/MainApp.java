@@ -16,16 +16,19 @@ public class MainApp {
 
         HashMap<String, Integer> animalsMap = new HashMap<>();
         for (String animal : animals) {
-            Integer count = animalsMap.get(animal);
-            if (count == null) {
+
+            if (!animalsMap.containsKey(animal)) {
                 animalsMap.put(animal, 1);
             } else {
-                animalsMap.put(animal, count + 1);
+                animalsMap.put(animal, animalsMap.get(animal) + 1);
             }
         }
         System.out.println(animalsMap);
 
 
+        System.out.println(animalsMap.keySet()); //Вывод списка животных без дубликата
+        /*
+       // Вывод значений из списка, которые встречаются только 1раз
         ArrayList<String> uniqueAnimals = new ArrayList<>();
         for (Map.Entry<String, Integer> item : animalsMap.entrySet()) {
             if (item.getValue() == 1) {
@@ -34,6 +37,7 @@ public class MainApp {
         }
 
         System.out.println(uniqueAnimals);
+         */
 
 
         /*
