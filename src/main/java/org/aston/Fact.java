@@ -1,7 +1,5 @@
 package org.aston;
 
-/// синглтон класс с функцией вычисления факториала
-// Fact.getFactorial(6) так вызывать в других местах, в скобки число
 
 public class Fact {
 
