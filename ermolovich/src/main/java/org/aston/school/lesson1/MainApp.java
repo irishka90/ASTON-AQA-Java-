@@ -3,7 +3,6 @@ package org.aston.school.lesson1;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -92,14 +91,16 @@ public class MainApp {
     //3. Задана коллекция, содержащая элементы "f10", "f15", "f2", "f4", "f4".
     // Необходимо отсортировать строки по возрастанию и добавить их в массив;
     private static void sortUp() {
-        List<String> newNotSorted = generateList(Arrays.asList("f10", "f15", "f2", "f4"));
+        List<String> newNotSorted = generateList(Arrays.asList("f10", "f15", "f1", "f42", "f7", "f4"));
         System.out.println(newNotSorted); //новая коллекция
 
-        UnaryOperator<List<String>> action = notSortedList -> notSortedList.stream()
-                .sorted()
-                .collect(Collectors.toList());
+        newNotSorted.sort((o1, o2) -> {
+            int i1 = Integer.parseInt(o1.replace("f", ""));
+            int i2 = Integer.parseInt(o2.replace("f", ""));
+            return i1 - i2;
+        });
 
-        System.out.println(action.apply(newNotSorted)); //отсортированная коллекция
+        System.out.println(newNotSorted); //отсортированная коллекция
     }
 
     /*
