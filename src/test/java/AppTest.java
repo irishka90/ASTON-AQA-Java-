@@ -58,7 +58,7 @@ public class AppTest {
 
     @Test
     @DisplayName("Заполнить поля и проверить работу кнопки «Продолжить»")
-    void test4() throws InterruptedException {
+    void test4() {
         driver.get("https://www.mts.by/");
 
 
@@ -71,9 +71,10 @@ public class AppTest {
         WebElement button = driver.findElement(new By.ByXPath("//*[@id=\"pay-connection\"]/button"));
         button.click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(new By.ByClassName("app-wrapper__content")));
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(new By.ByCssSelector(".bepaid-iframe")));
+        WebElement paidFrame = driver.findElement(new By.ByCssSelector(".bepaid-iframe"));
 
+        driver.switchTo().frame(paidFrame);
 
     }
 
