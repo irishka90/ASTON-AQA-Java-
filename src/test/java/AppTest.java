@@ -101,12 +101,29 @@ public class AppTest {
         String headerSum = driver.findElement(new By.ByClassName("header__payment-amount")).getText();
         Assertions.assertTrue(headerSum.contains(sumValue));
 
-        String btnSum = driver.findElement(new By.ByXPath("\"/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button\"")).getText();
+        String btnSum = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button")).getText();
         Assertions.assertTrue(btnSum.contains(sumValue));
 
         String headerPhone = driver.findElement(new By.ByClassName("header__payment-info")).getText();
         Assertions.assertTrue(headerPhone.contains(phoneValue));
 
+        String cardNumber = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[1]/label")).getText();
+        Assertions.assertEquals("Номер карты", cardNumber);
+
+        String dateEnd = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[1]/app-input/div/div/div[1]/label")).getText();
+        Assertions.assertEquals("Срок действия", dateEnd);
+
+        String cvc = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[3]/app-input/div/div/div[1]/label")).getText();
+        Assertions.assertEquals("CVC", cvc);
+
+        String nameOwner = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[3]/app-input/div/div/div[1]/label")).getText();
+        Assertions.assertEquals("Имя держателя (как на карте)", nameOwner);
+
+        WebElement iconBlock = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[2]/div/div"));
+        List<WebElement> icons = iconBlock.findElements(new By.ByTagName("img"));
+        for (WebElement icon : icons) {
+            Assertions.assertFalse(icon.getAttribute("src").isEmpty());
+        }
     }
 
 
