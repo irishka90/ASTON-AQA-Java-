@@ -76,6 +76,12 @@ public class AppTest {
 
         driver.switchTo().frame(paidFrame);
 
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button")));
+
+        WebElement buttonPay = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button"));
+
+
+        Assertions.assertTrue(buttonPay.isDisplayed());
     }
 
     @AfterAll
