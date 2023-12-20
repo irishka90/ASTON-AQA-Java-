@@ -68,12 +68,44 @@ public class AppTest {
             Assertions.assertEquals(email, "E-mail для отправки чека");
 
         }
+    }
 
 
+    //Для варианта «Услуги связи» заполнить поля в соответствии с пререквизитами из предыдущей темы,
+// нажать кнопку «Продолжить» и в появившемся окне проверить корректность отображения суммы (в том числе на кнопке),
+// номера телефона, а также надписей в незаполненных полях для ввода реквизитов карты, наличие иконок платёжных систем.
+    @Test
+    @DisplayName("Для варианта «Услуги связи» проверить корректность")
+    void test2() {
+        WebElement phone = driver.findElement(new By.ById("connection-phone"));
+        phone.click();
+        String phoneValue = "297777777";
+        phone.sendKeys(phoneValue);
+        WebElement sum = driver.findElement(new By.ById("connection-sum"));
+        sum.click();
+
+        String sumValue = "29.76";
+        sum.sendKeys(sumValue);
+        WebElement button = driver.findElement(new By.ByXPath("//*[@id=\"pay-connection\"]/button"));
+        button.click();
 
 
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(new By.ByCssSelector(".bepaid-iframe")));
+        WebElement paidFrame = driver.findElement(new By.ByCssSelector(".bepaid-iframe"));
 
+        driver.switchTo().frame(paidFrame);
 
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(new By.ByClassName("header__payment-amount")));
+
+        String headerSum = driver.findElement(new By.ByClassName("header__payment-amount")).getText();
+        Assertions.assertTrue(headerSum.contains(sumValue));
+
+        String btnSum = driver.findElement(new By.ByXPath("\"/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button\"")).getText();
+        Assertions.assertTrue(btnSum.contains(sumValue));
+
+        String headerPhone = driver.findElement(new By.ByClassName("header__payment-info")).getText();
+        Assertions.assertTrue(headerPhone.contains(phoneValue));
 
     }
 
