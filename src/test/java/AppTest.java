@@ -126,8 +126,6 @@ public class AppTest {
         }
     }
 
-
-
     @AfterAll
     static void close() {
         driver.quit();
