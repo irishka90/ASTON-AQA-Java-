@@ -15,11 +15,14 @@ public class AstonNGTests {
         Assert.assertEquals(24, Fact.getFactorial(4), "Errror");
     }
 
-    @Test(expectedExceptions = FactorialException.class)
-    public void factorial2() throws Exception {
+    @Test()
+    public void factorial2() {
         System.out.println("======TEST  fact -1 =======");
-        Fact.getFactorial(-1);
+        Assert.assertThrows("Значение в допустимых пределах 0..20",
+                FactorialException.class,
+                () -> Fact.getFactorial(-1));
     }
+    // разные варианты проверки
 
     @Test(expectedExceptions = FactorialException.class)
     public void factorial3() throws Exception {
