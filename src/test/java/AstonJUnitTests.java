@@ -18,24 +18,24 @@ public class AstonJUnitTests {
     }
 
     @Test()
-    public void factorial2() throws Exception {
+    public void factorial2() {
         System.out.println("======TEST  fact -1 =======");
 
         Exception exception = Assertions.assertThrows(FactorialException.class, () -> {
             Fact.getFactorial(-1);
-        });
+        }, "Значение в допустимых пределах 0..20");
 
         String actualMessage = exception.getMessage();
         Assertions.assertTrue(actualMessage.contains("Значение должно быть от 0 до 20"));
     }
 
     @Test()
-    public void factorial3() throws Exception {
+    public void factorial3() {
         System.out.println("======TEST  fact 21 =======");
 
         Exception exception = Assertions.assertThrows(FactorialException.class, () -> {
             Fact.getFactorial(21);
-        });
+        }, "Значение в допустимых пределах 0..20");
 
         String actualMessage = exception.getMessage();
         Assertions.assertTrue(actualMessage.contains("Значение должно быть от 0 до 20"));
