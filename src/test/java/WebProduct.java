@@ -41,11 +41,6 @@ public class WebProduct {
         return _webProduct.findElement(byPrice);
     }
 
-    @Override
-    public String toString() {
-        return "Id: " + getId() + " name: " + getName() + " price:" + getPrice();
-    }
-
     // получить количество размеров товара (если 0..1 то достаточно кликнуть на "в корзину" иначе выбирать размер на выпадающем попапе)
     public int getSizes() {
         return (int) _webProduct.findElements(byJSize)
@@ -62,4 +57,8 @@ public class WebProduct {
         getAddCard().click();
     }
 
+    @Override
+    public String toString() {
+        return "Id: " + getId() + " name: " + getName() + " price:" + getPrice();
+    }
 }

@@ -34,41 +34,34 @@ public class AppTest {
         mainPage.initProducts();
         Assertions.assertFalse(mainPage.getProducts().isEmpty(), "Не нашел позиций в магазине");
 
-        addRandomProductsToCart(mainPage);
+        for (int i = 0; i < 5; i++) { // добавляем 5 случайных товаров
+            addRandomProductToCart(mainPage);
+        }
 
-        ArrayList<Product> selectedProduct = mainPage.getProductsInCart();
+        ArrayList<Product> selectedProduct = mainPage.getProductsInCart(); // возвращаем массив добавленных
 
-        driver.get("https://www.wildberries.ru/lk/basket");
+        driver.get("https://www.wildberries.ru/lk/basket"); // или можно сделать клик на корзину на MainPAge
         CartPage cartPage = new CartPage(driver, selectedProduct);
         cartPage.initProducts();
         Assertions.assertFalse(cartPage.getProducts().isEmpty(), "Не нашел позиций в корзине");
-
-        Assertions.assertEquals(selectedProduct.size(), cartPage.getCartCount(), "В корзине не верно отображается счетчик позиций");
-
         Assertions.assertEquals(selectedProduct.size(), cartPage.getProducts().size(), "В корзине не верное число продуктов");
+        Assertions.assertEquals(selectedProduct.size(), cartPage.getCartCount(), "В корзине не верно отображается счетчик позиций");
 
         int compareSize = cartPage.compareItems();
         Assertions.assertNotEquals(-1, compareSize, "В корзине лишний продукт");
-        Assertions.assertEquals(selectedProduct.size(), compareSize, "В корзине не верное число продуктов");
+        Assertions.assertEquals(selectedProduct.size(), compareSize, "В корзине те же самые продукты что мы и добавили на главной странице");
 
         Assertions.assertEquals(cartPage.getFinalSumExpect(), cartPage.getFinalSumActual(), "Не верная общая сумма покупок для оплаты");
     }
 
     private void addRandomProductToCart(MainPage mainPage) {
         mainPage.addRandomProductInCart();
-        List<Product> productsAdded = mainPage.getProductsInCart();
-        Assertions.assertFalse(productsAdded.isEmpty(), "Никого не добавили в корзину");
+        List<Product> productsAdded = mainPage.getProductsInCart(); // возвращаем массив добавленных
 
         TestUtil.sleep(300L);
 
         int cartContain = mainPage.getCountInCart();
         Assertions.assertEquals(productsAdded.size(), cartContain, "Количество добавленных не совпадает " + productsAdded.size() + "!=" + cartContain + "\n" + productsAdded);
-    }
-
-    private void addRandomProductsToCart(MainPage mainPage) {
-        for (int i = 0; i < 5; i++) {
-            addRandomProductToCart(mainPage);
-        }
     }
 
     @AfterAll

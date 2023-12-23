@@ -4,15 +4,15 @@ package org.aston;
 public class Product {
     private String id; // ид
     private String name; // имя
-    private float price; // цена
+    private double price; // цена
 
     public Product(String id, String name, String price) {
         this.id = id;
         this.name = name;
-        this.price = Float.parseFloat(price);
+        this.price = Double.parseDouble(price);
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
