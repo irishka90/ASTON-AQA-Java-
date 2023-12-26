@@ -38,7 +38,7 @@ public class AppTest {
     @Test
     @DisplayName("Проверить наличие логотипов платёжных систем")
     void test2() {
-        WebElement logos = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul"));
+        WebElement logos = driver.findElement(By.className("pay__partners")).findElement(By.tagName("ul"));
         List<WebElement> elements = logos.findElements(By.tagName("li"));
         Assertions.assertNotEquals(elements.size(), 0);
     }
