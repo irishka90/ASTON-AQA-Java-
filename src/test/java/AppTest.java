@@ -17,13 +17,14 @@ public class AppTest {
     @BeforeAll
     static void setup() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("https://www.mts.by/");
     }
 
-    @BeforeAll
-    static void applyCookies() {
-        WebElement applyCookies = driver.findElement(new By.ByXPath("//*[@id=\"cookie-agree\"]"));
+    @BeforeEach
+    void applyCookies() {
+        driver = new ChromeDriver();
+        driver.get("https://www.mts.by/");
+
+        WebElement applyCookies = driver.findElement(By.xpath("//*[@id=\"cookie-agree\"]"));
         applyCookies.click();
     }
 
@@ -31,40 +32,40 @@ public class AppTest {
     @DisplayName("Проверить надписи в незаполненных полях каждого " +
             "варианта оплаты услуг: услуги связи, домашний интернет, рассрочка, задолженность")
     void test1() {
-         WebElement selectButton = driver.findElement(new By.ByClassName("select__header"));
+        WebElement selectButton = driver.findElement(By.className("select__header"));
 
         for (int i = 0; i < 4; i++) {
             selectButton.click();
             new WebDriverWait(driver, Duration.ofSeconds(5))
-                    .until(ExpectedConditions.visibilityOfElementLocated(new By.ByClassName("select__list")));
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.className("select__list")));
 
-            WebElement selectList = driver.findElement(new By.ByClassName("select__list"));
-            List<WebElement> listItems = selectList.findElements(new By.ByTagName("li"));
+            WebElement selectList = driver.findElement(By.className("select__list"));
+            List<WebElement> listItems = selectList.findElements(By.tagName("li"));
 
             WebElement itemSelected = listItems.get(i);
             itemSelected.click();
 
-            String selectNow = driver.findElement(new By.ByClassName("select__now")).getText();
+            String selectNow = driver.findElement(By.className("select__now")).getText();
             switch (selectNow) {
                 case "Услуги связи":
-                    Assertions.assertEquals(driver.findElement(new By.ById("connection-phone")).getAttribute("placeholder"), "Номер телефона");
+                    Assertions.assertEquals(driver.findElement(By.id("connection-phone")).getAttribute("placeholder"), "Номер телефона");
                     break;
                 case "Домашний интернет":
-                    Assertions.assertEquals(driver.findElement(new By.ById("internet-phone")).getAttribute("placeholder"), "Номер абонента");
+                    Assertions.assertEquals(driver.findElement(By.id("internet-phone")).getAttribute("placeholder"), "Номер абонента");
                     break;
                 case "Рассрочка":
-                    Assertions.assertEquals(driver.findElement(new By.ById("score-instalment")).getAttribute("placeholder"), "Номер счета на 44");
+                    Assertions.assertEquals(driver.findElement(By.id("score-instalment")).getAttribute("placeholder"), "Номер счета на 44");
                     break;
                 case "Задолженность":
-                    Assertions.assertEquals(driver.findElement(new By.ById("score-arrears")).getAttribute("placeholder"), "Номер счета на 2073");
+                    Assertions.assertEquals(driver.findElement(By.id("score-arrears")).getAttribute("placeholder"), "Номер счета на 2073");
                     break;
             }
 
 
-            String sum = driver.findElement(new By.ByClassName("total_rub")).getAttribute("placeholder");
+            String sum = driver.findElement(By.className("total_rub")).getAttribute("placeholder");
             Assertions.assertEquals("Сумма", sum);
 
-            String email = driver.findElement(new By.ByClassName("email")).getAttribute("placeholder");
+            String email = driver.findElement(By.className("email")).getAttribute("placeholder");
             Assertions.assertEquals(email, "E-mail для отправки чека");
 
         }
@@ -77,57 +78,57 @@ public class AppTest {
     @Test
     @DisplayName("Для варианта «Услуги связи» проверить корректность")
     void test2() {
-        WebElement phone = driver.findElement(new By.ById("connection-phone"));
+        WebElement phone = driver.findElement(By.id("connection-phone"));
         phone.click();
         String phoneValue = "297777777";
         phone.sendKeys(phoneValue);
-        WebElement sum = driver.findElement(new By.ById("connection-sum"));
+        WebElement sum = driver.findElement(By.id("connection-sum"));
         sum.click();
 
         String sumValue = "29.76";
         sum.sendKeys(sumValue);
-        WebElement button = driver.findElement(new By.ByXPath("//*[@id=\"pay-connection\"]/button"));
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"pay-connection\"]/button"));
         button.click();
 
 
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(new By.ByCssSelector(".bepaid-iframe")));
-        WebElement paidFrame = driver.findElement(new By.ByCssSelector(".bepaid-iframe"));
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bepaid-iframe")));
+        WebElement paidFrame = driver.findElement(By.cssSelector(".bepaid-iframe"));
 
         driver.switchTo().frame(paidFrame);
 
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(new By.ByClassName("header__payment-amount")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("header__payment-amount")));
 
-        String headerSum = driver.findElement(new By.ByClassName("header__payment-amount")).getText();
+        String headerSum = driver.findElement(By.className("header__payment-amount")).getText();
         Assertions.assertTrue(headerSum.contains(sumValue));
 
-        String btnSum = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button")).getText();
+        String btnSum = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button")).getText();
         Assertions.assertTrue(btnSum.contains(sumValue));
 
-        String headerPhone = driver.findElement(new By.ByClassName("header__payment-info")).getText();
+        String headerPhone = driver.findElement(By.className("header__payment-info")).getText();
         Assertions.assertTrue(headerPhone.contains(phoneValue));
 
-        String cardNumber = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[1]/label")).getText();
+        String cardNumber = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[1]/label")).getText();
         Assertions.assertEquals("Номер карты", cardNumber);
 
-        String dateEnd = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[1]/app-input/div/div/div[1]/label")).getText();
+        String dateEnd = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[1]/app-input/div/div/div[1]/label")).getText();
         Assertions.assertEquals("Срок действия", dateEnd);
 
-        String cvc = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[3]/app-input/div/div/div[1]/label")).getText();
+        String cvc = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[3]/app-input/div/div/div[1]/label")).getText();
         Assertions.assertEquals("CVC", cvc);
 
-        String nameOwner = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[3]/app-input/div/div/div[1]/label")).getText();
+        String nameOwner = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[3]/app-input/div/div/div[1]/label")).getText();
         Assertions.assertEquals("Имя держателя (как на карте)", nameOwner);
 
-        WebElement iconBlock = driver.findElement(new By.ByXPath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[2]/div/div"));
-        List<WebElement> icons = iconBlock.findElements(new By.ByTagName("img"));
+        WebElement iconBlock = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[2]/div/div"));
+        List<WebElement> icons = iconBlock.findElements(By.tagName("img"));
         for (WebElement icon : icons) {
             Assertions.assertFalse(icon.getAttribute("src").isEmpty());
         }
     }
 
-    @AfterAll
-    static void close() {
+    @AfterEach
+    void close() {
         driver.quit();
     }
 
