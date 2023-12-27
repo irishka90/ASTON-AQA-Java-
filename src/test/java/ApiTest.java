@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ApiTest {
@@ -82,7 +83,7 @@ public class ApiTest {
     @DisplayName("POST raw test")
     public void test2() {
 
-        String json = "{\n" +
+        String raw = "{\n" +
                 "    \"test\": \"value\"\n" +
                 "}";
 
@@ -90,14 +91,14 @@ public class ApiTest {
                 .baseUri(BASE_URL)
                 .accept(ContentType.ANY)
                 .contentType(ContentType.TEXT)
-                .body(json)
+                .body(raw)
                 .post("post")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
                 .body("url", equalTo(BASE_URL + "/post"))
-                .body("data", equalTo(json))
+                .body("data", equalTo(raw))
                 .body("files", equalTo(paramsEmpty))
                 .body("form", equalTo(paramsEmpty))
                 .body("args", equalTo(paramsEmpty))
@@ -136,7 +137,7 @@ public class ApiTest {
                 .body("json", equalTo(params))
                 .body("files", equalTo(paramsEmpty))
                 .body("args", equalTo(paramsEmpty))
-                .body("data", new IsSame<String>(""))
+                .body("data", sameInstance(""))
                 .body("headers.x-amzn-trace-id", startsWith("Root="))
                 .body("headers.x-forwarded-proto", equalTo("https"))
                 .body("headers.x-forwarded-port", equalTo("443"))
