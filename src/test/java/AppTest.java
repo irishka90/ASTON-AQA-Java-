@@ -91,7 +91,8 @@ public class AppTest {
         button.click();
 
 
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bepaid-iframe")));
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bepaid-iframe")));
         WebElement paidFrame = driver.findElement(By.cssSelector(".bepaid-iframe"));
 
         driver.switchTo().frame(paidFrame);
@@ -102,28 +103,40 @@ public class AppTest {
         String headerSum = driver.findElement(By.className("header__payment-amount")).getText();
         Assertions.assertTrue(headerSum.contains(sumValue));
 
-        String btnSum = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button")).getText();
+
+        WebElement cardRoot = driver.findElement(By.className("card-page__card"));
+
+        String btnSum = cardRoot.findElement(By.tagName("button")).getText();
         Assertions.assertTrue(btnSum.contains(sumValue));
 
         String headerPhone = driver.findElement(By.className("header__payment-info")).getText();
         Assertions.assertTrue(headerPhone.contains(phoneValue));
 
-        String cardNumber = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[1]/label")).getText();
-        Assertions.assertEquals("Номер карты", cardNumber);
+        List<WebElement> cardLabels = cardRoot.findElements(By.tagName("label"));
 
-        String dateEnd = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[1]/app-input/div/div/div[1]/label")).getText();
-        Assertions.assertEquals("Срок действия", dateEnd);
+        for (WebElement element : cardLabels) {
+            switch (element.getAttribute("class")) {
+                case "ng-tns-c47-1 ng-star-inserted":
+                    Assertions.assertEquals("Номер карты", element.getText());
+                    break;
+                case "ng-tns-c47-4 ng-star-inserted":
+                    Assertions.assertEquals("Срок действия", element.getText());
+                    break;
+                case "ng-tns-c47-5 ng-star-inserted":
+                    Assertions.assertEquals("CVC", element.getText());
+                    break;
+                case "ng-tns-c47-3 ng-star-inserted":
+                    Assertions.assertEquals("Имя держателя (как на карте)", element.getText());
+                    break;
+            }
+        }
 
-        String cvc = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[2]/div[3]/app-input/div/div/div[1]/label")).getText();
-        Assertions.assertEquals("CVC", cvc);
+        List<WebElement> icons = cardRoot.findElements(By.tagName("img"));
 
-        String nameOwner = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[3]/app-input/div/div/div[1]/label")).getText();
-        Assertions.assertEquals("Имя держателя (как на карте)", nameOwner);
-
-        WebElement iconBlock = driver.findElement(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/app-card-input/form/div[1]/div[1]/app-input/div/div/div[2]/div/div"));
-        List<WebElement> icons = iconBlock.findElements(By.tagName("img"));
         for (WebElement icon : icons) {
-            Assertions.assertFalse(icon.getAttribute("src").isEmpty());
+            if (icon.getAttribute("class").equals("ng-tns-c53-0 ng-star-inserted")) {
+                Assertions.assertFalse(icon.getAttribute("src").isEmpty());
+            }
         }
     }
 
