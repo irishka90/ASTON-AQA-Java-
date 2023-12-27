@@ -65,8 +65,6 @@ public class AppTest {
     @Test
     @DisplayName("Заполнить поля и проверить работу кнопки «Продолжить»")
     void test4() {
-        driver.get("https://www.mts.by/");
-
 
         WebElement phone = driver.findElement(By.id("connection-phone"));
         phone.click();
@@ -77,14 +75,17 @@ public class AppTest {
         WebElement button = driver.findElement(By.xpath("//*[@id=\"pay-connection\"]/button"));
         button.click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bepaid-iframe")));
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".bepaid-iframe")));
         WebElement paidFrame = driver.findElement(By.cssSelector(".bepaid-iframe"));
 
         driver.switchTo().frame(paidFrame);
 
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/div/div/app-payment-container/section/app-card-page/div/div[1]/button")));
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("card-page__card")));
 
-        WebElement buttonPay = driver.findElement(By.tagName("button"));
+        WebElement buttonPay = driver.findElement(By.className("card-page__card"))
+                .findElement(By.tagName("button"));
 
 
         Assertions.assertTrue(buttonPay.isDisplayed());
