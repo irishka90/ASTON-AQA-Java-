@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 public class WebProduct {
     private WebElement _webProduct;
     private final String idAttr = "data-nm-id";
-    private final By byJSize = new By.ByClassName("j-size");
-    private final By byName = new By.ByClassName("product-card__name");
-    private final By byPrice = new By.ByClassName("price__lower-price");
-    private final By byAddBtn = new By.ByClassName("product-card__order-wrap");
-    private final By byAddBtnA = new By.ByTagName("a");
+    private final By byJSize = By.className("j-size");
+    private final By byName = By.className("product-card__name");
+    private final By byPrice = By.className("price__lower-price");
+    private final By byAddBtn = By.className("product-card__order-wrap");
+    private final By byAddBtnA = By.tagName("a");
 
     public WebProduct(WebElement _webProduct) {
         this._webProduct = _webProduct;

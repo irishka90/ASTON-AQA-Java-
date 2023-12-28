@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 public class WebCart {
 
     private WebElement _webCart;
-    private final By byName = new By.ByClassName("good-info__good-name");
-    private final By byPrice = new By.ByClassName("list-item__price-new");
+    private final By byName = By.className("good-info__good-name");
+    private final By byPrice = By.className("list-item__price-new");
 
     public WebCart(WebElement _webCart) {
         this._webCart = _webCart;
@@ -26,8 +26,8 @@ public class WebCart {
     // Получит ид товара
     public String getId() {
 
-        return _webCart.findElement(new By.ByClassName("list-item__good")) // находим родительский элемент
-                .findElements(new By.ByTagName("div")) // находим все див в одном и будет ид товара в корзине
+        return _webCart.findElement(By.className("list-item__good")) // находим родительский элемент
+                .findElements(By.tagName("div")) // находим все див в одном и будет ид товара в корзине
                 .stream()
                 .filter(it -> it.getAttribute("data-nm") != null) // фильтруем с ид элементы
                 .findFirst()

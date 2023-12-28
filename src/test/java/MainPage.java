@@ -13,11 +13,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class MainPage {
-    private By byShop = new By.ByClassName("main-page__content");
-    private By byCartCountMobile = new By.ByClassName("navbar-mobile__notify");
-    private By byCartCountPc = new By.ByClassName("navbar-pc__notify");
+    private By byShop = By.className("main-page__content");
+    private By byCartCountMobile = By.className("navbar-mobile__notify");
+    private By byCartCountPc = By.className("navbar-pc__notify");
     private By byProduct = new By.ByTagName("article");
-    private By bySizeItem = new By.ByClassName("sizes-list__item");
+    private By bySizeItem = By.className("sizes-list__item");
     private final WebDriver driver;
 
     //  массив продуктов верстки в виде WebElement
