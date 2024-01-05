@@ -83,8 +83,8 @@ public class CalcTest {
     }
 
     private By getRandomNumberDiv() {
-        int position = random.nextInt(keysNumber.size()) + 1;
-        return keysNumber.get(position);
+        int position = random.nextInt(keysNumber.size());
+        return keysNumber.get(position == 0 ? 1 : position);
     }
 
     @Test
