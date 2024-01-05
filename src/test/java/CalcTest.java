@@ -82,6 +82,11 @@ public class CalcTest {
         return keysNumber.get(position);
     }
 
+    private By getRandomNumberDiv() {
+        int position = random.nextInt(keysNumber.size()) + 1;
+        return keysNumber.get(position);
+    }
+
     @Test
     @DisplayName("Сложение")
     public void test1() {
@@ -121,7 +126,7 @@ public class CalcTest {
 
     private String operation(KeyValuePair pair, OperationCalc callback) {
         WebElement first = driver.findElement(getRandomNumber());
-        WebElement second = driver.findElement(getRandomNumber());
+        WebElement second = driver.findElement(pair == div ? getRandomNumberDiv() : getRandomNumber());
 
         first.click();
         Assertions.assertEquals(first.getText(), getContent());
