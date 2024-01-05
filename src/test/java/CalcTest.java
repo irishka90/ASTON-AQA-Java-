@@ -78,12 +78,12 @@ public class CalcTest {
 
 
     private By getRandomNumber() {
-        int position = random.nextInt(keysNumber.size() - 1);
+        int position = random.nextInt(keysNumber.size());
         return keysNumber.get(position);
     }
 
     private By getRandomNumberDiv() {
-        int position = random.nextInt(keysNumber.size() - 1) + 1;
+        int position = random.nextInt(keysNumber.size()) + 1;
         return keysNumber.get(position);
     }
 
